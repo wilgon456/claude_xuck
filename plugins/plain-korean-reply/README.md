@@ -1,7 +1,13 @@
 # plain-korean-reply
 
-한국어로 답할 때 짧고 평범한 문장으로 쓰게 하는 플러그인. 규칙 전문은
-[references/rules.ko.md](references/rules.ko.md).
+한국어를 한국어답게 쓰게 하는 플러그인. 두 가지가 들어 있다.
+
+| | 무엇 | 언제 |
+| --- | --- | --- |
+| 답변 말투 | Claude가 **자기 답을** 짧고 평범하게 쓴다 | 깔면 자동, 매번 |
+| `korean-polish` 스킬 | **내가 쓴 글**을 다듬어 준다 | 「다듬어줘」라고 할 때 |
+
+규칙 전문: [references/rules.ko.md](references/rules.ko.md)
 
 ## 설치
 
@@ -10,18 +16,32 @@
 /plugin install plain-korean-reply
 ```
 
+## 어떻게 걸리나
+
+`SessionStart` 훅이 대화가 시작될 때 규칙을 컨텍스트에 넣는다. 공식
+`explanatory-output-style` 플러그인과 같은 방식이다.
+
+**스킬로 만들지 않은 이유** : 스킬은 불러야 본문이 열린다. 말투가 망가지는 건 평소 대화
+전부에서 일어나는데 그때는 스킬이 열려 있지 않다.
+
+윤문은 반대다. **필요할 때만** 쓰는 기능이니 스킬이 맞다. 그래서 한 플러그인 안에 훅과 스킬이
+같이 있다.
+
 ## 파일
 
 | 파일 | 역할 |
-|---|---|
-| `references/rules.ko.md` | 규칙 원본. 고칠 곳은 여기 |
+| --- | --- |
+| `references/rules.ko.md` | 규칙 원본. **고칠 곳은 여기** |
 | `hooks-handlers/context.json` | 훅이 내보내는 것. 위 파일에서 만든다 |
 | `hooks-handlers/session-start.sh` | JSON을 그대로 내보낸다 |
+| `skills/korean-polish/SKILL.md` | 윤문 스킬 |
 
 규칙을 셸 스크립트에 직접 적지 않았다. 한국어 여러 줄을 셸에서 JSON으로 감싸면 줄바꿈·따옴표
 탈출을 손으로 맞춰야 하고 **한 글자만 틀려도 훅이 조용히 무시된다.**
 
 ## 규칙을 고친 뒤
+
+`references/rules.ko.md`를 고쳤으면 훅이 내보낼 JSON을 다시 만든다.
 
 ```bash
 cd plugins/plain-korean-reply
@@ -39,4 +59,4 @@ PY
 CLAUDE_PLUGIN_ROOT="$PWD" bash hooks-handlers/session-start.sh | python -m json.tool > /dev/null && echo OK
 ```
 
-마지막 줄이 검사다. `OK`가 안 나오면 훅이 조용히 무시되므로 고칠 때마다 한 번 돌려 본다.
+마지막 줄이 검사다. `OK`가 안 나오면 훅이 **조용히 무시된다.**
