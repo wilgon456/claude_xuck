@@ -7,7 +7,7 @@
 | 출력 스타일 「한국어 평문」 | Claude가 **자기 답을** 짧고 평범하게 쓴다 | 깔면 자동, 매번 |
 | `korean-polish` 스킬 | **내가 쓴 글**을 다듬어 준다 | 「다듬어줘」라고 할 때 |
 
-규칙 아홉 개와 예시: [references/rules.ko.md](references/rules.ko.md)
+규칙 열한 개와 예시: [references/rules.ko.md](references/rules.ko.md)
 
 ## 설치
 
@@ -17,7 +17,7 @@
 ```
 
 `/clear` 하거나 새 대화를 시작하면 적용된다. 출력 스타일은 시스템 프롬프트의 일부여서
-Claude Code가 **대화 시작 때 한 번 읽는다.**
+Claude Code가 **대화 시작 때 읽는다.**
 
 ## 왜 출력 스타일인가
 
@@ -46,13 +46,25 @@ instructions **during the conversation**." 대화가 길어져도 묻히지 않�
 | 파일 | 역할 |
 | --- | --- |
 | `output-styles/plain-korean.md` | 실제로 적용되는 규칙. **고칠 곳은 여기** |
-| `references/rules.ko.md` | 같은 규칙의 사람이 읽는 설명본 |
+| `references/rules.ko.md` | 같은 규칙의 설명본. **위 파일에서 만든다**(손으로 고치지 말 것) |
 | `skills/korean-polish/SKILL.md` | 윤문 스킬 |
 
 ## 규칙을 고친 뒤
 
-`output-styles/plain-korean.md`를 고치고 `/clear` 하거나 새 대화를 시작하면 된다. 만들거나
-검사할 게 없다.
+`output-styles/plain-korean.md`를 고치고 `/clear` 하거나 새 대화를 시작하면 적용된다.
+
+설명본(`references/rules.ko.md`)도 맞추려면 스타일 파일에서 다시 만든다. **두 곳에 손으로
+적으면 곧 어긋난다.** 아래를 `plugins/plain-korean-reply`에서 파이썬으로 실행한다.
+
+```python
+import io, re
+style = io.open("output-styles/plain-korean.md", encoding="utf-8").read()
+body = re.sub(r"^---\n.*?\n---\n", "", style, flags=re.S).strip()
+old = io.open("references/rules.ko.md", encoding="utf-8").read()
+tail = old[old.index("\n---\n\n## 이 규칙은"):]        # 뒤쪽 설명은 그대로 둔다
+io.open("references/rules.ko.md", "w", encoding="utf-8", newline="\n").write(
+    "# 한국어 답변 규칙\n\n" + body + tail)
+```
 
 프론트매터(`---` 사이)의 `name`·`description`은 `/config` 목록에 뜨는 이름이다. 지우면 파일
 이름이 스타일 이름이 된다.
