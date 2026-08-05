@@ -1,0 +1,18 @@
+{
+  "name": "claude-xuck",
+  "description": "개인이 쓰는 Claude Code 플러그인 모음.",
+  "owner": {
+    "name": "wilgon456"
+  },
+  "plugins": [
+    {
+      "name": "plain-korean-reply",
+      "description": "한국어로 답할 때 짧고 평범한 문장으로 쓰게 한다. 번역투·지어낸 말·표 도배·기계 용어 노출·작업 과정 자랑을 막는다.",
+      "author": {
+        "name": "wilgon456"
+      },
+      "category": "productivity",
+      "source": "./plugins/plain-korean-reply"
+    }
+  ]
+}
