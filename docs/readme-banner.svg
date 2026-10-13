@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="260" viewBox="0 0 1200 260" role="img" aria-labelledby="title desc">
+  <title id="title">Plain Korean Replies</title>
+  <desc id="desc">Clear Korean, in every conversation.. Project banner.</desc>
+  <rect width="1200" height="260" rx="18" fill="#0f172a"/>
+  <rect x="0" y="0" width="14" height="260" fill="#fb923c"/>
+  <path d="M735 0v260" stroke="#334155" stroke-width="1"/>
+  <text x="58" y="105" fill="#f8fafc" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="700">Plain Korean Replies</text>
+  <text x="60" y="158" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="24">Clear Korean, in every conversation.</text>
+  <text x="60" y="216" fill="#fb923c" font-family="Arial, Helvetica, sans-serif" font-size="19">github.com/wilgon456</text>
+  <g fill="none" stroke="#fb923c" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M850 65h155v105h-80l-50 35v-35h-25z M875 97h105 M875 125h70"/></g>
+</svg>
